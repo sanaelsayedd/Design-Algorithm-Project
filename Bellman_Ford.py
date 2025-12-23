@@ -54,12 +54,13 @@ def Bellman_Ford(G, start):
     # (unlike Dijkstra's, which fails with negative edges)
     return shortest_paths
 
-start = 'S'
-G = make_graph()
+if __name__ == "__main__":
+    start = 'S'
+    G = make_graph()
 
-start_time = time.perf_counter()
-shortest_paths = Bellman_Ford(G, start)
-end_time = time.perf_counter()
+    start_time = time.perf_counter()
+    shortest_paths = Bellman_Ford(G, start)
+    end_time = time.perf_counter()
 
-print(f'Shortest path from {start}: {shortest_paths}')
-print(f"Execution Time: {end_time - start_time:.6f} seconds")
+    print(f'Shortest path from {start}: {shortest_paths}')
+    print(f"Execution Time: {end_time - start_time:.6f} seconds")

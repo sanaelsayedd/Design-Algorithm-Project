@@ -63,30 +63,31 @@ def johnson(vertices, edges):
 
 	return all_pairs
 
-graph = {
-	"A": [("B", 4), ("C", 2)],
-	"B": [("A", 4), ("C", 1), ("D", 5)],
-	"C": [("A", 2), ("B", 1), ("D", 8), ("E", 10)],
-	"D": [("B", 5), ("C", 8), ("E", 2)],
-	"E": [("C", 10), ("D", 2)],
-}
+if __name__ == "__main__":
+	graph = {
+		"A": [("B", 4), ("C", 2)],
+		"B": [("A", 4), ("C", 1), ("D", 5)],
+		"C": [("A", 2), ("B", 1), ("D", 8), ("E", 10)],
+		"D": [("B", 5), ("C", 8), ("E", 2)],
+		"E": [("C", 10), ("D", 2)],
+	}
 
-start = "A"
-end = "E"
+	start = "A"
+	end = "E"
 
-vertices = list(graph.keys())
-edges = [
-	(u, v, w)
-	for u, adj in graph.items()
-	for v, w in adj
-]
+	vertices = list(graph.keys())
+	edges = [
+		(u, v, w)
+		for u, adj in graph.items()
+		for v, w in adj
+	]
 
-start_time = time.perf_counter()
-all_pairs = johnson(vertices, edges)
-end_time = time.perf_counter()
+	start_time = time.perf_counter()
+	all_pairs = johnson(vertices, edges)
+	end_time = time.perf_counter()
 
-distance = all_pairs[start][end]
+	distance = all_pairs[start][end]
 
-print(f"Shortest distance from {start} to {end} (Johnson's algorithm): {distance}")
-print(f"Execution Time: {end_time - start_time:.6f} seconds")
+	print(f"Shortest distance from {start} to {end} (Johnson's algorithm): {distance}")
+	print(f"Execution Time: {end_time - start_time:.6f} seconds")
 
