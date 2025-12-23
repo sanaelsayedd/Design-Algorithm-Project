@@ -55,11 +55,11 @@ def Bellman_Ford(G, start):
     return shortest_paths
 
 start = 'S'
-start_time = time.time()
-end_time = time.time()
 G = make_graph()
+
+start_time = time.perf_counter()
 shortest_paths = Bellman_Ford(G, start)
+end_time = time.perf_counter()
 
 print(f'Shortest path from {start}: {shortest_paths}')
-r = end_time - start_time
-print(f"Time: {r:.4f} seconds")
+print(f"Execution Time: {end_time - start_time:.6f} seconds")

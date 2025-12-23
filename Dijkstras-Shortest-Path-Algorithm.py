@@ -1,56 +1,48 @@
 import heapq
 import time
 
-def ShortestPath(n, edges, src):
-    adj = {}
-    for i in range(n):
-        adj[i] = []
+def dijkstra(graph, start, end):
+    pq = [(0, start)]
+    dist = {node: float('inf') for node in graph}
+    prev = {node: None for node in graph}
+    dist[start] = 0
 
-    for s, dst, weight in edges:
-        adj[s].append([dst, weight])
+    while pq:
+        current_dist, u = heapq.heappop(pq)
 
-    shortest = {}
-    minHeap = [[0, src]]
+        if u == end:
+            break
 
-    while minHeap:
-        w1, n1 = heapq.heappop(minHeap)
-        if n1 in shortest:
+        if current_dist > dist[u]:
             continue
-        shortest[n1] = w1
 
-        for n2, w2 in adj[n1]:
-            if n2 not in shortest:
-                heapq.heappush(minHeap, [w1 + w2, n2])
+        for v, weight in graph[u]:
+            new_dist = current_dist + weight
+            if new_dist < dist[v]:
+                dist[v] = new_dist
+                prev[v] = u
+                heapq.heappush(pq, (new_dist, v))
 
-    for i in range(n):
-        if i not in shortest:
-            shortest[i] = -1
+    path = []
+    node = end
+    while node:
+        path.append(node)
+        node = prev[node]
 
-    return shortest
+    return path[::-1], dist[end]
 
-cities = {
-        0: "Cairo",
-        1: "Giza",
-        2: "Alexandria",
-        3: "Tanta",
-        4: "Mansoura"
-    }
-n = len(cities)
-edges = [
-        (0, 1, 4),
-        (0, 2, 1),
-        (2, 1, 2),
-        (1, 3, 1),
-        (2, 3, 5),
-        (3, 4, 3)
-    ]
-start_time = time.time()
-end_time = time.time()
-src = 0
-result = ShortestPath(n, edges, src)
-print("Shortest distances from Cairo:")
+graph = {
+    'A': [('B', 4), ('C', 2)],
+    'B': [('A', 4), ('C', 1), ('D', 5)],
+    'C': [('A', 2), ('B', 1), ('D', 8), ('E', 10)],
+    'D': [('B', 5), ('C', 8), ('E', 2)],
+    'E': [('C', 10), ('D', 2)]
+}
 
-for city_id, dist in result.items():
-    print(f"{cities[city_id]} : {dist} km")
-r = end_time - start_time
-print(f"Time: {r:.4f} seconds")
+start_time = time.perf_counter()
+path, distance = dijkstra(graph, 'A', 'E')
+end_time = time.perf_counter()
+
+print("Shortest Path:", path)
+print("Total Distance:", distance)
+print(f"Execution Time: {end_time - start_time:.6f} seconds")
