@@ -1,4 +1,5 @@
 import heapq
+import time
 
 def ShortestPath(n, edges, src):
     adj = {}
@@ -43,9 +44,13 @@ edges = [
         (2, 3, 5),
         (3, 4, 3)
     ]
+start_time = time.time()
+end_time = time.time()
 src = 0
 result = ShortestPath(n, edges, src)
 print("Shortest distances from Cairo:")
 
 for city_id, dist in result.items():
     print(f"{cities[city_id]} : {dist} km")
+r = end_time - start_time
+print(f"Time: {r:.4f} seconds")

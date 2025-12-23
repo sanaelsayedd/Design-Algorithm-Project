@@ -1,3 +1,4 @@
+import time
 infinity = float("inf")
 
 # (edge_weight, to_node)
@@ -54,8 +55,11 @@ def Bellman_Ford(G, start):
     return shortest_paths
 
 start = 'S'
-
+start_time = time.time()
+end_time = time.time()
 G = make_graph()
 shortest_paths = Bellman_Ford(G, start)
 
 print(f'Shortest path from {start}: {shortest_paths}')
+r = end_time - start_time
+print(f"Time: {r:.4f} seconds")
